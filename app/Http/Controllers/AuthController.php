@@ -54,8 +54,15 @@ class AuthController extends Controller
              'res'  => true,
             ]);
             $sessions = json_decode($sessionJson->getBody());
+            foreach ($sessions as $session) {  
+                if(($session->email==$request->email) && ($session->password==$request->password))
+                {
+                    $cont=true;
+                    $user=$session;
+                }          
+            }
             Session::flash('mensaje','Registro de usuario creado con exito');
-            return view('Layouts.dashboard',['id'=>$response->json('id'),'sessions'=>$sessions]);
+            return view('Layouts.dashboard', ['user' => $user]);
         }
         else
         {
