@@ -139,7 +139,7 @@ a{
             <div class="col-xl-8">
                 <!-- Account details card-->
                 <div class="card mb-4">
-                    <div class="card-header">Detalles Principales de Evento</div>
+                    <div class="card-header">Detalles Principales del Evento</div>
                     <div class="card-body">
             
                             <!-- Form Row-->
@@ -213,7 +213,7 @@ a{
                                        
                                     </section>
                                 </div>
-                                <button class="btn btn-warning mb-4 mt-4 py-3" type="submit" >Siguiente</button>                       
+                                <button class="btn btn-warning mb-4 mt-4 py-3" type="submit" >Guardar </button>                       
                             </div>
                     </div>
                 </div>

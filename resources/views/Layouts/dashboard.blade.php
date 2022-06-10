@@ -293,7 +293,7 @@
   <header class="p-3  border-bottom bg-dark" >
     <div class="container">
       <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
+        <a href="{{route('eventindex.eventprincipal',$user->id)}}" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
           <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-ticket" width="40" height="40" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
             <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
             <line x1="15" y1="5" x2="15" y2="7" />
@@ -304,13 +304,13 @@
         </a>
 
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0" >
-          <li><a href="#" class="nav-link px-2 link-light">Eventos</a></li>
+          <li><a href="{{route('eventindex.eventprincipal',$user->id)}}" class="nav-link px-2 link-light">Principal</a></li>
           <li><a href="#" class="nav-link px-2 link-light">OnDemand</a></li>
           <li><a href="#" class="nav-link px-2 link-light">Servicios</a></li>
           <li><a href="{{route('tickets.show',$user->id)}}" class="nav-link px-2 link-light">Mis E-Tikets</a></li>
         </ul>
         
-        <button class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 btndashboard btn btn-outline-warning"><a style="text-decoration: none; color: white; font-weight: bold" href="{{route('event.createevent',$user->id)}}">Crear Evento</a> </button>
+        <button class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 btndashboard btn btn-outline-warning"><a style="text-decoration: none; color: white; font-weight: bold" href="{{route('eventcrear.createevent',$user->id)}}">Crear Evento</a> </button>
         <div class="dropdown text-end">
           <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
             <label for="" style="color:aliceblue; font-weight: bold;">{{$user->name.' '.$user->lastname}}</label>
@@ -318,7 +318,7 @@
           </a>
           <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
             <li><a class="dropdown-item" href="{{route('account.show',$user->id)}}">Cuenta</a></li>
-            <li><a class="dropdown-item" href="#">Eventos</a></li>
+            <li><a class="dropdown-item" href="{{route('event.show',$user->id)}}">Eventos</a></li>
             <li><a class="dropdown-item" href="{{route('tickets.show',$user->id)}}">E-Tickets y Consumos</a></li>
             <li><a class="dropdown-item" href="{{route('profile.edit',$user->id)}}">Editar tus datos</a></li>
             <li><a class="dropdown-item" href="#">Cambiar contrasena</a></li>
@@ -331,7 +331,6 @@
   </header>
   <div class="b-example-divider"></div>
 </main>
-
 <script src="{{asset('assets/dist/js/bootstrap.bundle.min.js')}}"></script>
 <script src="{{asset('sidebars.js')}}"></script>
 @yield('content')

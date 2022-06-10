@@ -1,3 +1,5 @@
+@extends('Layouts.dashboard')
+@section('content')
 <!doctype html>
 <html lang="en">
   <head>
@@ -31,7 +33,15 @@
           font-size: 3.5rem;
         }
       }
-
+      .btn-tickets
+      {
+        
+        color:#90929d;
+      }
+      .btn-tickets:hover
+      {
+        color:#4158d0;
+      }
       .b-example-divider {
         height: 3rem;
         background-color: rgba(0, 0, 0, .1);
@@ -76,6 +86,9 @@
       background: linear-gradient(-135deg, #c850c0, #4158d0);
       
       }
+      .img-account-profile {
+       height: 25rem;
+       }
     .album{
       background: #9053c7;
       background: -webkit-linear-gradient(-135deg, #c850c0, #4158d0);
@@ -84,48 +97,11 @@
       background: linear-gradient(-135deg, #c850c0, #4158d0); 
     }
 </style>
-    
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
 </head>
 <body>
-<header>
-  <div class="collapse bg-dark" id="navbarHeader">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-8 col-md-7 py-4">
-          <h4 class="text-white">Acerda de nosotros</h4>
-          <p class="text">Add some information about the album below, the author, or any other background context. Make it a few sentences long so folks can pick up some informative tidbits. Then, link them off to some social networking sites or contact information.</p>
-        </div>
-        <div class="col-sm-4 offset-md-1 py-4">
-          <ul class="list-unstyled">
-            <li><a class="login100-form-btn" style="width: 100%;" href="/login" class="text-white">Iniciar sesion</a></li>
-            <br>
-            <li><a class="login100-form-btn-secudary" style="width: 100%;" href="/register" class="text-white">Registrarse</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="navbar navbar-dark bg-dark shadow-sm">
-    <div class="container">
-      <a href="#" class="navbar-brand d-flex align-items-center">
-        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-ticket" width="36" height="36" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
-            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-            <line x1="15" y1="5" x2="15" y2="7" />
-            <line x1="15" y1="11" x2="15" y2="13" />
-            <line x1="15" y1="17" x2="15" y2="19" />
-            <path d="M5 5h14a2 2 0 0 1 2 2v3a2 2 0 0 0 0 4v3a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-3a2 2 0 0 0 0 -4v-3a2 2 0 0 1 2 -2" />
-          </svg>
-        <strong>Ticket's - Line</strong>
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    </div>
-  </div>
-</header>
-
 <main>
-
   <div class="album py-5 bg-light">
     <div class="container card-bubble">
 
@@ -166,10 +142,7 @@
     <p class="mb-0">New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a href="../getting-started/introduction/">getting started guide</a>.</p>
   </div>
 </footer>
-
-
-    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
-
-      
+ <script src="{{asset('assets/dist/js/bootstrap.bundle.min.js')}}"></script>   
 </body>
 </html>
+@endsection
