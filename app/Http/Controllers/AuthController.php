@@ -54,10 +54,9 @@ class AuthController extends Controller
              'res'  => true,
             ]);
             $sessions = json_decode($sessionJson->getBody());
-            foreach ($sessions as $session) {  
-                if(($session->email==$request->email) && ($session->password==$request->password))
+           foreach ($sessions as $session) {  
+                if(($session->email==$request->email))
                 {
-                    $cont=true;
                     $user=$session;
                 }          
             }
@@ -103,6 +102,7 @@ class AuthController extends Controller
     public function update(Request $request, $id)
     {
         //
+        /*Carla Carmen Julia  Cecilia Cristina Dayana Helen Nancy Natalia Rossy Roxana Silvia*/
     }
 
     /**
@@ -126,7 +126,7 @@ class AuthController extends Controller
             $cont=false;
             $sessions = json_decode($sessionJson->getBody());
             foreach ($sessions as $session) {  
-                if(($session->email==$request->email) && ($session->password==$request->password))
+                if(($session->email==$request->email))
                 {
                     $cont=true;
                     $user=$session;
@@ -137,6 +137,7 @@ class AuthController extends Controller
                 return view('Layouts.dashboard', ['user' => $user]);
             }
             else{
+                Session::flash('warning','Error de inicio de session');
                 return redirect()->to('/login');
             }
     }

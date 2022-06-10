@@ -21,7 +21,7 @@
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 <!--===============================================================================================-->
    <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/album/">
-<link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+   <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 	<script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
@@ -73,6 +73,11 @@
 					@csrf
 					<span class="login100-form-title">
 						Iniciar Sesion
+						@if (Session::has('warning'))
+                       <div class="alert alert-danger">
+                        {{Session::get('warning')}}
+                       </div>
+                        @endif
 					</span>
 
 					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
