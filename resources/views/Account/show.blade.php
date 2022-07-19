@@ -179,7 +179,7 @@
             <path d="M5 5h14a2 2 0 0 1 2 2v3a2 2 0 0 0 0 4v3a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-3a2 2 0 0 0 0 -4v-3a2 2 0 0 1 2 -2" />
           </svg>
         <div>
-            <a href="{{route('profile.edit',$user->id)}}" style="text-decoration: none;"><h4 class="fw-bold mb-0">Mis eTickets</h4></a>
+            <a href="{{route('misTickets.tickets',$user->id)}}" style="text-decoration: none;"><h4 class="fw-bold mb-0">Mis eTickets</h4></a>
           <p>Paragraph of text beneath the heading to explain the heading.</p>
         </div>
       </div>
@@ -203,7 +203,7 @@
             <path d="M7 12h14l-3 -3m0 6l3 -3" />
           </svg>
         <div>
-            <a href="{{route('profile.edit',$user->id)}}" style="text-decoration: none;"><h4 class="fw-bold mb-0">Cerrar sesión</h4></a>
+            <a href="/" style="text-decoration: none;"><h4 class="fw-bold mb-0">Cerrar sesión</h4></a>
           <p>Paragraph of text beneath the heading to explain the heading.</p>
         </div>
       </div>

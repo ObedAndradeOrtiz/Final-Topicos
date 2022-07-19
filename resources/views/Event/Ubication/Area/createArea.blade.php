@@ -115,21 +115,22 @@ a{
     ?>   
     
     <div class="container-xl px-4 mt-4">
-    <form action="{{route('ubicacion.store')}}" method="post">
+    <form action="{{route('areas.store')}}" method="post">
         @csrf
-        <input type="hidden" name="id" value="{{$id_event}}">
+        <input type="hidden" name="id" value="{{$id_ubi}}">
         <input type="hidden" name="id_user" value="{{$user->id}}">
         <!-- Account page navigation-->
         <nav class="nav nav-borders">
-            <a class="nav-link active ms-0" href="" target="__blank">Ubicaciones del Evento</a>
+            <a class="nav-link active ms-0" href="" target="__blank">Areas de la Ubicacion</a>
         </nav>
         <div class="mb-3 sombra-claro">
             <button class="btn btn-info collapsed boton-collapsed" style="width: 100%;" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHistoricoCli" aria-expanded="false" aria-controls="collapseHistoricoCli">
-                CREAR UBICACION
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-map-pin  text-muted flex-shrink-0 me-3" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                CREAR AREA
+                  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pin text-muted flex-shrink-0 me-3" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                    <circle cx="12" cy="11" r="3" />
-                    <path d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0z" />
+                    <path d="M15 4.5l-4 4l-4 1.5l-1.5 1.5l7 7l1.5 -1.5l1.5 -4l4 -4" />
+                    <line x1="9" y1="15" x2="4.5" y2="19.5" />
+                    <line x1="14.5" y1="4" x2="20" y2="9.5" />
                   </svg>
             </button>
           
@@ -139,45 +140,26 @@ a{
                     <div class="row gx-3 mb-3">
                         <!-- Form Group (first name)-->
                     <div class="col-md-6">
-                            <label class="small mb-1" for="inputFirstName">Nombre ubicacion</label>
+                            <label class="small mb-1" for="inputFirstName">Nombre Area</label>
                             <input type="text" class="form-control" id="titulo" placeholder="Nombre" name="nombre">
                     </div>
                     </div>
                     <div class="row gx-3 mb-3">
                         <div class="col-md-6">
-                            <label class="small mb-1" for="inputLastName">Ubicacion</label>
-                            <input type="text" class="form-control" id="titulo" placeholder="Ubicacion" name="ubicacion">
+                            <label class="small mb-1" for="inputLastName">Capacidad</label>  
+                            <input type="number" class="form-control" id="titulo" placeholder="Capacidad" name="capacidad">
                         </div>
                     </div>
                     <div class="row gx-3 mb-3">
                         <div class="col-md-6">
-                            <label class="small mb-1" for="inputLastName">Direccion</label>
-                            <input type="text" class="form-control" id="titulo" placeholder="Ubicacion" name="direccion">
+                            <label class="small mb-1" for="inputLastName">Referencia</label>  
+                            <input type="text" class="form-control" id="titulo" placeholder="Referencia" name="referencia">
                         </div>
                     </div>
                     <div class="row gx-3 mb-3">
                         <div class="col-md-6">
-                            <label class="small mb-1" for="inputLastName">Telefono</label>  
-                            <input type="number" class="form-control" id="titulo" placeholder="Telefono" name="telefono">
-                        </div>
-                    </div>
-                    <div class="row gx-3 mb-3">
-                        <div class="col-md-6">
-                            <label class="small mb-1" for="inputLastName">Ciudad</label>  
-                            <input type="text" class="form-control" id="titulo" placeholder="Telefono" name="ciudad"">
-                        </div>
-                    </div>
-                    <div class="row gx-3 mb-3">
-                        <div class="col-md-6">
-                            <label class="small mb-1" for="inputLastName">Pais</label>  
-                            <input type="text" class="form-control" id="titulo" placeholder="Telefono" name="pais">
-                        </div>
-                    </div>
-
-                    <div class="row gx-3 mb-3">
-                        <div class="col-md-6">
-                            <label class="small mb-1" for="inputLastName">Fecha y hora</label>  
-                            <input type="datetime-local" class="form-control" id="titulo" placeholder="Fecha y Hora" name="fecha_hora">                            
+                            <label class="small mb-1" for="inputLastName">Precio</label>  
+                            <input type="text" class="form-control" id="titulo" placeholder="Precio de Tickets" name="precio_area">
                         </div>
                     </div>
                     <button class="btn btn-warning collapsed boton-collapsed" style="width: 50%;" type="submit" data-bs-toggle="collapse" data-bs-target="#collapseHistoricoCli" aria-expanded="false" aria-controls="collapseHistoricoCli">
@@ -187,13 +169,13 @@ a{
             </div>
         <div class=" mb-4 bg-light rounded-3">
             <div class="container-fluid py-5">       
-        @foreach ($ubicaciones as $ubicacion ) 
-        @if ($ubicacion->event_id==$id_event)
+        @foreach ($areas as $area ) 
+        @if ($area->ubicacion_id=$id_ubi)
         <hr class="mt-0 mb-4">
             <div class="col" id="myTable">
                 <!-- Account details card-->
                 <div class="card">
-                    <div class="card-header">Detalles de ubicaciones {{' '.$ubicacion->nombre}}</div>
+                    <div class="card-header">Detalles de ubicaciones {{' '.$area->nombre}}</div>
                     <div class="card-body">
                         <form>
                             <?php
@@ -205,61 +187,48 @@ a{
                                 </div>
                                 <!-- Form Group (first name)-->
                                 <div class="col-md-3">
-                                    <label class="small mb-1" for="inputFirstName">Nombre</label>
+                                    <label class="small mb-1" for="inputFirstName">ID->Ubicacion</label>
                                 </div>
                                 <!-- Form Group (last name)-->
                                 <div class="col">
-                                    <label class="small mb-1" for="inputLastName">Ubicacion</label>
+                                    <label class="small mb-1" for="inputLastName">Capacidad</label>
                                 </div>
                                
-                                
+                
                                 <div class="col">
-                                    <label class="small mb-1" for="inputLastName">Fecha</label>
+                                    <label class="small mb-1" for="inputLastName">Referencia</label>
                                 </div>
                             </div> 
                             <div class="row gx-3 mb-3">
                                 <div class="col-md-3">                        
-                                    <label class="form-control" id="inputFirstName" type="text" >{{$ubicacion->event_id}}</label>  
+                                    <label class="form-control" id="inputFirstName" type="text" >{{$area->event_id}}</label>  
                                 </div>
                                 <!-- Form Group (first name)-->
                                 <div class="col-md-3">                        
-                                    <label class="form-control" id="inputFirstName" type="text" >{{$ubicacion->nombre}}</label>  
+                                    <label class="form-control" id="inputFirstName" type="text" >{{$area->ubicacion_id}}</label>  
                                 </div>
                                 <!-- Form Group (last name)-->
                                 <div class="col">                               
-                                    <label class="form-control" id="inputLastName" type="text" >{{$ubicacion->ubicacion}}</label>  
+                                    <label class="form-control" id="inputLastName" type="text" >{{$area->capacidad}}</label>  
                                 </div>
                                 
                                 <div class="col">                             
-                                    <label class="form-control" id="inputLastName" type="text" >{{$ubicacion->fecha_hora}}</label>  
+                                    <label class="form-control" id="inputLastName" type="text" >{{$area->referencia}}</label>  
                                  </div>
                             </div>       
                             <div class="row gx-3 mb-3">
                                 <div class="container px-4" id="icon-grid">
                                     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 ">
-                                        <div class="col d-flex align-items-start">
-                                              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pin text-muted flex-shrink-0 me-3" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="#597e8d" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                <path d="M15 4.5l-4 4l-4 1.5l-1.5 1.5l7 7l1.5 -1.5l1.5 -4l4 -4" />
-                                                <line x1="9" y1="15" x2="4.5" y2="19.5" />
-                                                <line x1="14.5" y1="4" x2="20" y2="9.5" />
-                                              </svg>
-                                            <div>
-                                                <a href="{{route('areas.show',$user->id.'-'.$ubicacion->id)}}" style="text-decoration: none;"><h6 class="fw-bold mb-0">Admin. Areas</h6></a>
-                                              <p>Paragraph of text beneath the heading to explain the heading.</p>
-                                            </div>
-                                          </div>
+                                    
                                       <div class="col d-flex align-items-start">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-map-2 text-muted flex-shrink-0 me-3" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="#597e8d" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pin text-muted flex-shrink-0 me-3" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="#597e8d" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                            <line x1="18" y1="6" x2="18" y2="6.01" />
-                                            <path d="M18 13l-3.5 -5a4 4 0 1 1 7 0l-3.5 5" />
-                                            <polyline points="10.5 4.75 9 4 3 7 3 20 9 17 15 20 21 17 21 15" />
-                                            <line x1="9" y1="4" x2="9" y2="17" />
-                                            <line x1="15" y1="15" x2="15" y2="20" />
+                                            <path d="M15 4.5l-4 4l-4 1.5l-1.5 1.5l7 7l1.5 -1.5l1.5 -4l4 -4" />
+                                            <line x1="9" y1="15" x2="4.5" y2="19.5" />
+                                            <line x1="14.5" y1="4" x2="20" y2="9.5" />
                                           </svg>
                                         <div>
-                                            <a href="" style="text-decoration: none;"><h6 class="fw-bold mb-0">Editar Ubicacion</h6></a>
+                                            <a href="" style="text-decoration: none;"><h6 class="fw-bold mb-0">Editar Area</h6></a>
                                           <p>Paragraph of text beneath the heading to explain the heading.</p>
                                         </div>
                                       </div>
@@ -288,7 +257,7 @@ a{
             @endif
             @endforeach
             @if($cont != 1)
-              <h3 class=" mb-4 mt-4 py-1 display-5 fw-bold">¡No existe ninguna ubicacion para este evento!</h3>
+              <h3 class=" mb-4 mt-4 py-1 display-5 fw-bold">¡No existe ningun Area para esta Ubicacion!</h3>
             @endif
                
                 </form>

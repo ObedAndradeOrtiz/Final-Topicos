@@ -128,7 +128,7 @@ a{
     <div class="container-xl px-4 mt-4">
         <form action="{{route('event.store')}}" method="POST" enctype="multipart/form-data" >
             @csrf
-    
+        <input type="hidden" name="idUser" value="{{$user->id}}" />
         <!-- Account page navigation-->
         <nav class="nav nav-borders">
             <a class="nav-link active ms-0" href="https://www.bootdey.com/snippets/view/bs5-edit-profile-account-details" target="__blank">Evento</a>

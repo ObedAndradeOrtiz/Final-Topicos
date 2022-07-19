@@ -33,10 +33,15 @@
           font-size: 3.5rem;
         }
       }
+      .card-img-top
+      {
+        padding: 1rem;
+      
+      }
       .btn-tickets
       {
         
-        color:#90929d;
+        color:#ffffff;
       }
       .btn-tickets:hover
       {
@@ -66,6 +71,17 @@
         z-index: 2;
         height: 2.75rem;
         overflow-y: hidden;
+      }
+      .card{
+        background-color:rgba(146, 134, 134, 0.268);
+        color: black;
+        -webkit-box-shadow: 0px 11px 49px 16px rgba(0,0,0,0.39);
+        -moz-box-shadow: 0px 11px 49px 16px rgba(0,0,0,0.39);
+         box-shadow: 0px 11px 49px 16px rgba(0,0,0,0.39);
+         border-radius: 10px 10px 10px 10px;
+        -moz-border-radius: 10px 10px 10px 10px;
+        -webkit-border-radius: 10px 10px 10px 10px;
+         border: 0px solid #000000;
       }
 
       .nav-scroller .nav {
@@ -105,16 +121,16 @@
   <div class="album py-5 bg-light">
     <div class="container card-bubble">
 
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
         @foreach ($eventos as $event)  
         <div class="col">
-          <div class="card" style="width: 25rem; height: 25rem">
+          <div class="card" style="width: 15rem; height: 30rem padding:2rem">
             <img src="{{Storage::url($event->file)}}" class="card-img-top" alt="IMG" style="width: 15rem; height: 15rem">
             <div class="card-body">
-              <h5 class="card-title">{{$event->titulo}}</h5>
-              <p class="card-text">{{$event->descripcion}}</p>
-              <a href="" class="btn btn-outline-warning btn-tickets" style="width:100%;">
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-ticket" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="#597e8d" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <h5 class="card-title text-center">{{$event->titulo}}</h5>
+             
+              <a href="{{route('tickets.show',$user->id.'-'.$event->id)}}" class="btn btn-outline-warning btn-tickets" style="width:100%; ">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-ticket" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
                   <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                   <line x1="15" y1="5" x2="15" y2="7" />
                   <line x1="15" y1="11" x2="15" y2="13" />
@@ -135,11 +151,10 @@
 
 <footer class="text-muted py-5 bg-dark">
   <div class="container">
-    <p class="float-end mb-1">
-      <a href="#">Back to top</a>
+    <p class="float-end ">
+      <a href="#">Volver al inico</a>
     </p>
-    <p class="mb-1">Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
-    <p class="mb-0">New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a href="../getting-started/introduction/">getting started guide</a>.</p>
+    <p class="mt-3">Todos los derechos reservados &copy;AndradeCompany</p>
   </div>
 </footer>
  <script src="{{asset('assets/dist/js/bootstrap.bundle.min.js')}}"></script>   

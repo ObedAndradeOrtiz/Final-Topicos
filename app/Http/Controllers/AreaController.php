@@ -1,12 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
 use GuzzleHttp\Client;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Http\Request;
 
-class TicketsController extends Controller
+class AreaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -37,6 +36,33 @@ class TicketsController extends Controller
     public function store(Request $request)
     {
         //
+        $response = Http::post('https://apiseventos.herokuapp.com/api/areas', [
+            'event_id' => null,
+            'ubicacion_id'=>$request->id,        
+            'nombre' => $request->nombre,
+            'precio' =>$request->precio_area,
+            'capacidad'=>$request->capacidad,
+            'referencia' =>$request->referencia,
+        ]);
+        $client=new Client();
+        $url="https://apiseventos.herokuapp.com/api/session";
+        $sessionJson = $client->request('GET', $url, [
+         'res'  => true,
+        ]);
+        $sessions = json_decode($sessionJson->getBody());
+        foreach ($sessions as $session) {  
+            if(($session->id==$request->id_user))
+            {
+                $user=$session;
+            }          
+        }
+        $client=new Client();
+        $url="https://apiseventos.herokuapp.com/api/areas";
+        $AreasJson = $client->request('GET', $url, [
+         'res'  => true,
+        ]);
+        $areas = json_decode($AreasJson->getBody());
+   return view('Event.Ubication.Area.createArea',['user' => $user,'id_ubi'=>$request->id, 'areas'=>$areas]);
     }
 
     /**
@@ -45,10 +71,9 @@ class TicketsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(string $id)
+    public function show($id)
     {
         //
-       
         for ($i = 0; $i <= strlen($id)-1; $i++) {
             if($id[$i]=='-')
             {
@@ -56,7 +81,7 @@ class TicketsController extends Controller
             }
         }
         $id_user=substr ( $id,0,$special);
-        $id_event=substr ( $id,$special+1,strlen($id)-1);
+        $id_ubi=substr ( $id,$special+1,strlen($id)-1);
         $client=new Client();
         $url="https://apiseventos.herokuapp.com/api/session";
         $sessionJson = $client->request('GET', $url, [
@@ -70,49 +95,13 @@ class TicketsController extends Controller
             }          
         }
         $client=new Client();
-        $url="https://apiseventos.herokuapp.com/api/eventos";
-        $response = $client->request('GET', $url, [
-         'res'  => true,
-        ]);
-        $eventos = json_decode($response->getBody());
-
-        $client=new Client();
-        $url="https://apiseventos.herokuapp.com/api/ubicaciones";
-        $ubicacionJson = $client->request('GET', $url, [
-        'res'  => true,
-        ]);
-        $ubicaciones = json_decode($ubicacionJson->getBody());
-        $client=new Client();
-        $url="https://apiseventos.herokuapp.com/api/areas";
-        $areasJson = $client->request('GET', $url, [
-        'res'  => true,
-        ]);
-        $areas = json_decode($areasJson->getBody());
-        return view('Tickets.show',['user' => $user,'eventos'=>$eventos,'id_event'=>$id_event, 'ubicaciones'=>$ubicaciones, 'areas'=>$areas]);
+             $url="https://apiseventos.herokuapp.com/api/areas";
+             $AreasJson = $client->request('GET', $url, [
+              'res'  => true,
+             ]);
+             $areas = json_decode($AreasJson->getBody());
+        return view('Event.Ubication.Area.createArea',['user' => $user,'id_ubi'=>$id_ubi, 'areas'=>$areas]);
     }
-    public function misTickets(string $id)
-    {
-        $client=new Client();
-        $url="https://apiseventos.herokuapp.com/api/session";
-        $sessionJson = $client->request('GET', $url, [
-         'res'  => true,
-        ]);
-        $sessions = json_decode($sessionJson->getBody());
-        $url="https://apiseventos.herokuapp.com/api/ticket";
-        $ticketsJson = $client->request('GET', $url, [
-         'res'  => true,
-        ]);
-        $tickets = json_decode($ticketsJson->getBody());
-        foreach ($sessions as $session) {  
-            if(($session->id==$id))
-            {
-                $user=$session;
-            }          
-        }
-        return view('Tickets.misTickets',['user' => $user,'tickets'=>$tickets]);
-    }
-
-
 
     /**
      * Show the form for editing the specified resource.

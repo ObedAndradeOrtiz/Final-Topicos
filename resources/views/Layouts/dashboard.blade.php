@@ -177,7 +177,7 @@
     <title>Main</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/headers/">
-<link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="{{asset('assets/dist/css/bootstrap.min.css')}}" rel="stylesheet">
 <link rel="icon" type="image/png" href="{{asset('images/icons/favicon.ico')}}"/>
 <!--===============================================================================================-->
   <link rel="stylesheet" type="text/css" href="{{asset('vendor/bootstrap/css/bootstrap.min.css')}}">
@@ -307,7 +307,7 @@
           <li><a href="{{route('eventindex.eventprincipal',$user->id)}}" class="nav-link px-2 link-light">Principal</a></li>
           <li><a href="#" class="nav-link px-2 link-light">OnDemand</a></li>
           <li><a href="#" class="nav-link px-2 link-light">Servicios</a></li>
-          <li><a href="{{route('tickets.show',$user->id)}}" class="nav-link px-2 link-light">Mis E-Tikets</a></li>
+          <li><a href="{{route('misTickets.tickets',$user->id)}}" class="nav-link px-2 link-light">Mis E-Tikets</a></li>
         </ul>
         
         <button class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 btndashboard btn btn-outline-warning"><a style="text-decoration: none; color: white; font-weight: bold" href="{{route('eventcrear.createevent',$user->id)}}">Crear Evento</a> </button>
@@ -316,14 +316,19 @@
             <label for="" style="color:aliceblue; font-weight: bold;">{{$user->name.' '.$user->lastname}}</label>
             <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
           </a>
-          <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+          <ul class="dropdown-menu text-small" style="
+          border-radius: 10px 10px 10px 10px;
+          -moz-border-radius: 10px 10px 10px 10px;
+          -webkit-border-radius: 10px 10px 10px 10px;
+          border: 2px solid #f0d62d;" 
+           aria-labelledby="dropdownUser1">
             <li><a class="dropdown-item" href="{{route('account.show',$user->id)}}">Cuenta</a></li>
             <li><a class="dropdown-item" href="{{route('event.show',$user->id)}}">Eventos</a></li>
-            <li><a class="dropdown-item" href="{{route('tickets.show',$user->id)}}">E-Tickets y Consumos</a></li>
+            <li><a class="dropdown-item" href="{{route('misTickets.tickets',$user->id)}}">E-Tickets y Consumos</a></li>
             <li><a class="dropdown-item" href="{{route('profile.edit',$user->id)}}">Editar tus datos</a></li>
             <li><a class="dropdown-item" href="#">Cambiar contrasena</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Cerrar sesion</a></li>
+            <li><a class="dropdown-item" href="/">Cerrar sesion</a></li>
           </ul>
         </div>
       </div>

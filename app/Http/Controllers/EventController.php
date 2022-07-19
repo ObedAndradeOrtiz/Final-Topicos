@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
@@ -22,6 +23,7 @@ class EventController extends Controller
     public function indexEvent($id)
     {
         //
+
         $client=new Client();
         $url="https://apiseventos.herokuapp.com/api/session";
         $sessionJson = $client->request('GET', $url, [
@@ -86,9 +88,23 @@ class EventController extends Controller
     {
         //
          //
-      
+        
+         $client=new Client();
+         $url="https://apiseventos.herokuapp.com/api/session";
+         $sessionJson = $client->request('GET', $url, [
+          'res'  => true,
+         ]);
+         $cont=false;
+         $sessions = json_decode($sessionJson->getBody());
+         foreach ($sessions as $session) {  
+             if(($session->id==$request->idUser))
+             {
+                 $user=$session;
+             }          
+         }
          $path=$request->file('images')->store('public');
          $response = Http::post('https://apiseventos.herokuapp.com/api/eventos', [
+             'idUser' =>$request->idUser,
              'titulo' => $request->titulo,
              'tipo' => $request->tipo,
              'rest_edad'=>$request->rest_edad,
@@ -108,7 +124,7 @@ class EventController extends Controller
              $ubicaciones = json_decode($ubicacionJson->getBody());
  
              Session::flash('mensaje','Registro de evento creado con exito');
-             return \view('Event.Ubication.createUbication',['id'=>$response->json('id'),'ubicaciones'=>$ubicaciones]);
+             return \view('Event.Ubication.createUbication',['id_event'=>$response->json('id'),'ubicaciones'=>$ubicaciones,"user"=>$user]);
          }
          else
          {
@@ -140,9 +156,15 @@ class EventController extends Controller
                 $user=$session;
             }          
         }
+        $client=new Client();
+        $url="https://apiseventos.herokuapp.com/api/eventos";
+        $response = $client->request('GET', $url, [
+         'res'  => true,
+        ]);
+        $eventos = json_decode($response->getBody());
         if($cont==true)
         {
-            return view('Event.show', ['user' => $user]);
+            return view('Event.show', ['user' => $user, 'eventos' => $eventos]);
         }
         
     }
@@ -156,6 +178,15 @@ class EventController extends Controller
     public function edit($id)
     {
         //
+        for ($i = 0; $i <= strlen($id)-1; $i++) {
+            if($id[$i]=='-')
+            {
+              $special=$i;
+            }
+        }
+        
+        $id_user=substr ( $id,0,$special);
+        $id_event=substr ( $id,$special+1,strlen($id)-1);
         $client=new Client();
         $url="https://apiseventos.herokuapp.com/api/session";
         $sessionJson = $client->request('GET', $url, [
@@ -164,16 +195,27 @@ class EventController extends Controller
         $cont=false;
         $sessions = json_decode($sessionJson->getBody());
         foreach ($sessions as $session) {  
-            if(($session->id==$id))
+            if(($session->id==$id_user))
             {
-                $cont=true;
                 $user=$session;
             }          
         }
-        if($cont==true)
-        {
-            return view('Event.edit', ['user' => $user]);
+        $client=new Client();
+        $url="https://apiseventos.herokuapp.com/api/eventos";
+        $response = $client->request('GET', $url, [
+         'res'  => true,
+        ]);
+        $eventos = json_decode($response->getBody());
+        foreach ($eventos as $evento) {  
+            if(($evento->id==$id_event))
+            {
+                $event=$evento;
+            }          
         }
+       
+       
+            return view('Event.edit', ['user' => $user, 'event' => $event,'id_event'=>$id_event]);
+        
     }
 
     /**
@@ -186,6 +228,45 @@ class EventController extends Controller
     public function update(Request $request, $id)
     {
         //
+        for ($i = 0; $i <= strlen($id)-1; $i++) {
+            if($id[$i]=='-')
+            {
+              $special=$i;
+            }
+        }
+        $id_user=substr ( $id,0,$special);
+        $id_event=substr ( $id,$special+1,strlen($id)-1);
+        $path=$request->file('images')->store('public');
+        $response = Http::put('https://apiseventos.herokuapp.com/api/eventos/'.$id_event, [
+            'titulo' => $request->titulo,
+            'tipo' => $request->tipo,
+            'rest_edad'=>$request->rest_edad,
+            'descripcion'=>$request->descripcion,
+            'categoria'=>$request->categoria,
+            'cantidad_ubi'=>$request->cantidad_ubi,
+            'file'=>$path,
+            'link_video'=>$request->link_video,
+        ]);
+        $client=new Client();
+        $url="https://apiseventos.herokuapp.com/api/session";
+        $sessionJson = $client->request('GET', $url, [
+         'res'  => true,
+        ]);
+        $cont=false;
+        $sessions = json_decode($sessionJson->getBody());
+        foreach ($sessions as $session) {  
+            if(($session->id==$id_user))
+            {
+                $user=$session;
+            }          
+        }
+        $client=new Client();
+        $url="https://apiseventos.herokuapp.com/api/eventos";
+        $response = $client->request('GET', $url, [
+         'res'  => true,
+        ]);
+        $eventos = json_decode($response->getBody());
+        return view('Event.show', ['user' => $user, 'eventos' => $eventos]);
     }
 
     /**

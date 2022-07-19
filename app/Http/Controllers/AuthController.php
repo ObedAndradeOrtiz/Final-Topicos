@@ -60,8 +60,13 @@ class AuthController extends Controller
                     $user=$session;
                 }          
             }
-            Session::flash('mensaje','Registro de usuario creado con exito');
-            return view('Layouts.dashboard', ['user' => $user]);
+            $client=new Client();
+                $url="https://apiseventos.herokuapp.com/api/eventos";
+                $response = $client->request('GET', $url, [
+               'res'  => true,
+             ]);
+              $eventos = json_decode($response->getBody());
+              return view('Event.index',['user' => $user,'eventos'=>$eventos]);
         }
         else
         {
@@ -134,7 +139,13 @@ class AuthController extends Controller
             }
             if($cont==true)
             {
-                return view('Layouts.dashboard', ['user' => $user]);
+                $client=new Client();
+                $url="https://apiseventos.herokuapp.com/api/eventos";
+                $response = $client->request('GET', $url, [
+               'res'  => true,
+             ]);
+              $eventos = json_decode($response->getBody());
+              return view('Event.index',['user' => $user,'eventos'=>$eventos]);
             }
             else{
                 Session::flash('warning','Error de inicio de session');

@@ -126,14 +126,17 @@ a{
     <script src="{{asset('js/functions.js')}}"></script>
     <script src="{{asset('js/scripts.js')}}"></script>
     <div class="container-xl px-4 mt-4">
-        <form action="{{route('event.store')}}" method="POST" enctype="multipart/form-data" >
-            @csrf
+       
     
         <!-- Account page navigation-->
         <nav class="nav nav-borders">
             <a class="nav-link active ms-0" href="https://www.bootdey.com/snippets/view/bs5-edit-profile-account-details" target="__blank">Evento</a>
         </nav>
         <hr class="mt-0 mb-4">
+        <form action="{{route('event.update',$event->id.'-'.$user->id)}}" method="POST" enctype="multipart/form-data" >
+            @csrf
+            @method('PUT')  
+       
         <div class="row">
             
             <div class="col-xl-8">
@@ -147,7 +150,7 @@ a{
                                 <!-- Form Group (first name)-->
                                 <div class="col-md-6">
                                     <label class="small mb-1" for="inputFirstName">Titulo</label>
-                                    <input type="text" class="form-control" id="titulo" placeholder="Titulo de evento" name="titulo">
+                                    <input type="text" class="form-control" id="titulo" placeholder="{{$event->titulo}}" name="titulo">
                                 </div>
                                 <!-- Form Group (last name)-->
                                 
@@ -156,7 +159,7 @@ a{
                                 <div class="col-md-6">
                                     <label class="small mb-1" for="inputLastName">Tipo evento</label>
                                     <select name="tipo" id="tipo" class="form-control">
-                                        <option selected></option>
+                                        <option selected>{{$event->tipo}}</option>
                                         <option>Privado</option>
                                         <option>Publico</option>
                                       </select>
@@ -166,7 +169,7 @@ a{
                                 <div class="col-md-6">
                                     <label class="small mb-1" for="inputLastName">Restriccion de edad >18 </label>
                                     <select name="rest_edad" id="rest_edad" class="form-control line-s">
-                                        <option selected></option>
+                                        <option selected>{{$event->rest_edad}}</option>
                                         <option>Si</option>
                                         <option>No</option>
                                       </select>  
@@ -176,7 +179,7 @@ a{
                                 <div class="col-md-6">
                                     <label class="small mb-1" for="inputLastName">Categoria</label>
                                     <select name="categoria" id="categoira" class="form-control line-s-2">
-                                        <option selected></option>
+                                        <option selected>{{$event->categoria}}</option>
                                         <option>Concierto</option>
                                         <option>Cine</option>
                                         <option>Aeropuerto</option>
@@ -187,13 +190,13 @@ a{
                             <div class="row gx-3 mb-3">
                                 <div class="col-md-6">
                                     <label class="small mb-1" for="inputLastName">Descripcion</label>
-                                    <textarea name="descripcion" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                    <textarea name="descripcion" class="form-control" id="exampleFormControlTextarea1" rows="3">{{$event->descripcion}}</textarea>
                                 </div>
                             </div>
                             <div class="row gx-3 mb-3">
                                 <div class="col-md-6">
                                     <label class="small mb-1" for="inputLastName">Link video promocional</label>
-                                    <input type="text" class="form-control" id="link_video" placeholder="Link video promocional" name="link_video">
+                                    <input type="text" class="form-control" id="link_video" placeholder="{{$event->link_video}}" name="link_video">
                                 </div>
                             </div>
                             <div class="row">
@@ -206,8 +209,8 @@ a{
                                                     <div class="add-new-photo first" id="add-photo">
                                                         <span><i class="icon-camera" style="color:black;"></i></span>
                                                     </div>
-                                                     <input type="file" multiple id="add-new-photo" name="images"> 
-                                                    
+                                                     <input type="file" multiple id="add-new-photo" name="images" value="{{$event->file}}"> 
+                                                      
                                                 </div>
                                             </div>
                                        
@@ -218,8 +221,10 @@ a{
                     </div>
                 </div>
             </div>
-        </div>     
-</form>
+        </div>  
+    </form>
+ 
+
 </div>
 </main>
     

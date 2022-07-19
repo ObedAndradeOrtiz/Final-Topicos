@@ -25,6 +25,7 @@
  <link rel="stylesheet" type="text/css" href="{{asset('vendor/select2/select2.min.css')}}">
  <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/sidebars/">
  <link href="{{asset('assets/dist/css/bootstrap.min.css')}}" rel="stylesheet">
+ <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
 </head>
 <style>
     body{
@@ -96,6 +97,7 @@ a{
     <script src="https://kit.fontawesome.com/871fc34738.js" crossorigin="anonymous"></script>
     <script src="{{asset('assets/dist/js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{asset('sidebars.js')}}"></script>
+   
     <div class="container-xl px-4 mt-4">
     <form action="" method="post">
         @csrf
@@ -104,11 +106,13 @@ a{
         <nav class="nav nav-borders">
             <a class="nav-link active ms-0" href="" target="__blank">Mis Eventos</a>
         </nav>
+        @foreach ($eventos as $event ) 
+        @if ($event->idUser==$user->id)
         <hr class="mt-0 mb-4">
-            <div class="col">
+            <div class="col" id="myTable">
                 <!-- Account details card-->
                 <div class="card">
-                    <div class="card-header">Detalles de Evento</div>
+                    <div class="card-header">Detalles de Evento {{' '.$event->titulo}}</div>
                     <div class="card-body">
                         <form>
                             <!-- Form Row-->
@@ -122,7 +126,7 @@ a{
                                     <label class="small mb-1" for="inputLastName">Tipo</label>
                                 </div>
                                 <div class="col">
-                                    <label class="small mb-1" for="inputLastName">Lugar</label>  
+                                    <label class="small mb-1" for="inputLastName">Restriccion edad</label>  
                                 </div>
                                 <div class="col">
                                     <label class="small mb-1" for="inputLastName">Fecha Creada</label>
@@ -132,17 +136,17 @@ a{
                             <div class="row gx-3 mb-3">
                                 <!-- Form Group (first name)-->
                                 <div class="col-md-3">                        
-                                    <label class="form-control" id="inputFirstName" type="text" ></label>  
+                                    <label class="form-control" id="inputFirstName" type="text" >{{$event->titulo}}</label>  
                                 </div>
                                 <!-- Form Group (last name)-->
                                 <div class="col">                               
-                                    <label class="form-control" id="inputLastName" type="text" ></label>  
+                                    <label class="form-control" id="inputLastName" type="text" >{{$event->tipo}}</label>  
                                 </div>
                                 <div class="col">                                   
-                                    <label class="form-control" id="inputLastName" type="text" ></label>  
+                                    <label class="form-control" id="inputLastName" type="text" >{{$event->rest_edad}}</label>  
                                 </div>
                                 <div class="col">                             
-                                   <label class="form-control" id="inputLastName" type="text" ></label>  
+                                   <label class="form-control" id="inputLastName" type="text" >{{$event->created_at}}</label>  
                                 </div>
                             </div>
                             <div class="row gx-3 mb-3">
@@ -169,7 +173,7 @@ a{
                                 </div>
                                 <!-- Form Group (last name)-->
                                 <div class="col">                               
-                                    <label class="form-control" id="inputLastName" type="text" ></label>  
+                                    <label class="form-control" id="inputLastName" type="text" >{{$event->id}}</label>  
                                 </div>
                                 <div class="col">                                   
                                     <label class="form-control" id="inputLastName" type="text" ></label>  
@@ -187,7 +191,7 @@ a{
                                         <path d="M6 6h3.5l2.5 -2.5l2.5 2.5h3.5v3.5l2.5 2.5l-2.5 2.5v3.5h-3.5l-2.5 2.5l-2.5 -2.5h-3.5v-3.5l-2.5 -2.5l2.5 -2.5z" />
                                       </svg>
                                     <div>
-                                      <a href="{{route('event.edit',$user->id)}}" style="text-decoration: none;"><h6 class="fw-bold mb-0">Editar Evento</h6></a>
+                                      <a href="{{route('event.edit',$user->id.'-'.$event->id)}}" style="text-decoration: none;"><h6 class="fw-bold mb-0">Editar Evento</h6></a>
                                       <p>Paragraph of text beneath the heading to explain the heading.</p>
                                     </div>
                                   </div>
@@ -201,7 +205,7 @@ a{
                                         <line x1="15" y1="15" x2="15" y2="20" />
                                       </svg>
                                     <div>
-                                        <a href="{{route('profile.edit',$user->id)}}" style="text-decoration: none;"><h6 class="fw-bold mb-0">Editar Ubicaciones</h6></a>
+                                        <a href="{{route('ubicacion.show',$user->id.'-'.$event->id)}}" style="text-decoration: none;"><h6 class="fw-bold mb-0">Editar Ubicaciones</h6></a>
                                       <p>Paragraph of text beneath the heading to explain the heading.</p>
                                     </div>
                                   </div>
@@ -249,9 +253,17 @@ a{
                         </form>
                     </div>
                 </div>
-            </div>
+            </div>        
+            @endif
+            @endforeach
         </div>
 </form>
 </div>
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready( function () {
+    $('#myTable').DataTable();
+} );
+</script>
 </body>
 @endsection
