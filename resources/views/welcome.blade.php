@@ -421,7 +421,6 @@
         @foreach ($eventos as $event)  
         <div class="col">
           <div class="card" style="width: 15rem; height: 30rem padding:2rem">
-            <label >{{$event->file}}</label>
             <img src="{{Storage::url($event->file)}}" class="card-img-top" alt="IMG" style="width: 15rem; height: 15rem">
             <div class="card-body">
               <h5 class="card-title text-center" style="text-align: center; color:white; -webkit-text-fill-color: rgb(255, 255, 255);
