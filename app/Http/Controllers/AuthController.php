@@ -43,7 +43,14 @@ class AuthController extends Controller
             'name'=>$request->name,
             'lastname'=>$request->lastname,
             'email'=>$request->email,
-            'password'=>$request->password
+            'password'=>bcrypt($request->password),
+            // 'soyFotografo'=>null,
+            // 'correoProfesional'=>null,
+            // 'habilidad'=>null,
+            // 'linkedIn'=>null,
+            // 'nivelProfesional'=>null,
+            // 'Referencia'=>null,
+            // 'Idioma'=>null
         ]);
 
         if($response->json('res')==true)

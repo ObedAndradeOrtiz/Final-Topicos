@@ -66,6 +66,31 @@ class AccountController extends Controller
         }
     }
 
+public function indexFotografo($id)
+{
+    //return  "algo";
+    //verifica el user desde la api
+    $client=new Client();
+    $url="https://apiseventos.herokuapp.com/api/session";
+    $sessionJson = $client->request('GET', $url, [
+     'res'  => true,
+    ]);
+    $cont=false;
+    $sessions = json_decode($sessionJson->getBody());
+    foreach ($sessions as $session) {  
+        if(($session->id==$id))
+        {
+            $cont=true;
+            $user=$session;
+        }          
+    }
+    if($cont==true)
+    {
+        return view('Account.indexFotografo', ['user' => $user]);
+    }
+}
+
+
     /**
      * Show the form for editing the specified resource.
      *

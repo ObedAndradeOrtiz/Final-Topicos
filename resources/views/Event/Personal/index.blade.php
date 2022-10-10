@@ -145,129 +145,62 @@
 
             <!--  /Bootstrap y jQuery -->
 
-
             <script src="{{ asset('js/modal.js') }}"></script>
             <script src="{{ asset('js/functions.js') }}"></script>
             <script src="{{ asset('js/scripts.js') }}"></script>
             <div class="container-xl px-4 mt-4">
 
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <li>Ingrese todos los datos, por favor verificar.</li>
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
+                <!-- Account page navigation-->
+                <nav class="nav nav-borders">
+                    <a class="nav-link active ms-0" href="">Buscar Fotografos</a> 
+                    <a class="nav-link active ms-0" href="{{ route('eventpersonalsoli.personalSolicitudEvent', $id_event. '-' . $user->id)  }}">Solicitudes de Fotografos</a>
+                </nav>
 
+                <hr class="mt-0 mb-4">
 
-                <form action="{{ route('event.store') }}" method="POST" enctype="multipart/form-data">
+                {{-- <form action="{{ route('event.update', $event->id . '-' . $user->id) }}" method="POST"
+                    enctype="multipart/form-data">
                     @csrf
-                    <input type="hidden" name="idUser" value="{{ $user->id }}" />
-                    <!-- Account page navigation-->
-                    <nav class="nav nav-borders">
-                        <a class="nav-link active ms-0"
-                        href="">Evento</a>
-                    </nav>
-                    <hr class="mt-0 mb-4">
-                    <div class="row">
+                    @method('PUT')
 
-                        <div class="col-xl-8">
-                            <!-- Account details card-->
-                            <div class="card mb-4">
-                                <div class="card-header">Detalles Principales del Evento</div>
-                                <div class="card-body">
+                </form> --}}
 
-                                    <!-- Form Row-->
-                                    <div class="row gx-3 mb-3">
-                                        <!-- Form Group (first name)-->
-                                        <div class="col-md-6">
-                                            <label class="small mb-1" for="inputFirstName">Nombre</label>
-                                            <input type="text" class="form-control" id="titulo"
-                                                placeholder="Nombre del evento" name="titulo" style="height: 3rem"
-                                                required>
-                                        </div>
-                                        <!-- Form Group (last name)-->
 
-                                    </div>
-                                    <div class="row gx-3 mb-3">
-                                        <div class="col-md-6">
-                                            <label class="small mb-1" for="inputLastName">Tipo de evento</label>
-                                            <select name="tipo" id="tipo" class="form-control" style="height: 3rem"
-                                                required>
-                                                <option selected></option>
-                                                <option>Privado</option>
-                                                <option>Publico</option>
-                                            </select>
+                <div class="album py-5 bg-light">
+                    <div class="container card-bubble">
+                        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
+                            @foreach ($usuarios as $usuario)
+                                {{-- @if ($usuario->soyFotografo = true)
+                                //todo el codigo aqui!!
+                            @endif --}}
+                                <div class="col">
+                                    <div class="card" style="width: 15rem; height: 30rem padding:2rem">
+                                        <img src="https://github.com/mdo.png" class="card-img-top" alt="IMG"
+                                            style="width: 15rem; height: 15rem">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-center">{{ $usuario->name }}
+                                                {{ $usuario->lastname }}</h5>
+                                            <a href="{{ route('eventpersonaldate.personalDateEvent', $usuario->id) }}"
+                                                class="btn btn-outline-warning btn-tickets" style="width:100%; ">
+                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                    class="icon icon-tabler icon-tabler-ticket" width="32"
+                                                    height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff"
+                                                    fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                    <line x1="15" y1="5" x2="15" y2="7" />
+                                                    <line x1="15" y1="11" x2="15" y2="13" />
+                                                    <line x1="15" y1="17" x2="15" y2="19" />
+                                                    {{-- <path d="M5 5h14a2 2 0 0 1 2 2v3a2 2 0 0 0 0 4v3a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-3a2 2 0 0 0 0 -4v-3a2 2 0 0 1 2 -2" /> --}}
+                                                </svg>
+                                                <strong>Ver Datos +</strong>
+                                            </a>
                                         </div>
-                                    </div>
-                                    <div class="row gx-3 mb-3">
-                                        <div class="col-md-6">
-                                            <label class="small mb-1" for="inputLastName">Restriccion de edad > 18
-                                            </label>
-                                            <select name="rest_edad" id="rest_edad" class="form-control line-s"
-                                                style="height: 3rem" required>
-                                                <option selected></option>
-                                                <option>Si</option>
-                                                <option>No</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="row gx-3 mb-3">
-                                        <div class="col-md-6">
-                                            <label class="small mb-1" for="inputLastName">Categoria</label>
-                                            <select name="categoria" id="categoira" class="form-control line-s-2"
-                                                style="height: 3rem" required>
-                                                <option selected></option>
-                                                <option>Concierto</option>
-                                                <option>Cine</option>
-                                                <option>Aeropuerto</option>
-                                                <option>Matrimonio</option>
-                                                <option>Graduacion</option>
-                                                <option>Deportivo</option>
-                                                <option>Empresarial/corporativo</option>
-                                                <option>Cultural</option>
-                                                <option>Socioeducativa</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="row gx-3 mb-3">
-                                        <div class="col-md-6">
-                                            <label class="small mb-1" for="inputLastName">Descripcion</label>
-                                            <textarea name="descripcion" class="form-control" id="exampleFormControlTextarea1" rows="3" required></textarea>
-                                        </div>
-                                    </div>
-                                    {{-- <div class="row gx-3 mb-3">
-                                <div class="col-md-6">
-                                    <label class="small mb-1" for="inputLastName">Link video promocional</label>
-                                    <input type="text" class="form-control" id="link_video" placeholder="Link video promocional" name="link_video" style="height: 3rem" required>
-                                </div>
-                            </div> --}}
-                                    <div class="row">
-                                        <label class="small mb-1" for="inputLastName">Elige una imagen de portada</label>
-                                        <div class="">
-                                            <section id="Images" class="images-cards">
-                                                <div class="row">
-                                                    <div class=" col-md-3" id="add-photo-container">
-                                                        <div class="add-new-photo first" id="add-photo">
-                                                            <span><i class="icon-camera" style="color:black;"></i></span>
-                                                        </div>
-                                                        <input type="file" multiple id="add-new-photo" name="images"
-                                                            required>
-
-                                                    </div>
-                                                </div>
-                                            </section>
-                                        </div>
-                                        <button class="btn btn-warning mb-4 mt-4 py-3" type="submit">Siguiente</button>
                                     </div>
                                 </div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
         </main>
 

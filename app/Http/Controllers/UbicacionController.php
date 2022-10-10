@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Http;
+
 class UbicacionController extends Controller
 {
     /**
@@ -36,35 +37,52 @@ class UbicacionController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'nombre' => 'required',
+            'ubicacion' => 'required',
+            'direccion' => 'required',
+            'telefono' => 'required',
+            'ciudad' => 'required',
+            'pais' => 'required',
+            'fecha_hora' => 'required',
+        ]);
+
         $response = Http::post('https://apiseventos.herokuapp.com/api/ubicaciones', [
             'event_id' => $request->id,
             'nombre' => $request->nombre,
-            'ubicacion'=>$request->ubicacion,
-            'direccion'=>$request->direccion,
-            'telefono'=>$request->telefono,
-            'ciudad'=>$request->ciudad,
-            'pais'=>$request->pais,
-            'fecha_hora'=>$request->fecha_hora,
+            'ubicacion' => $request->ubicacion,
+            'direccion' => $request->direccion,
+            'telefono' => $request->telefono,
+            'ciudad' => $request->ciudad,
+            'pais' => $request->pais,
+            'fecha_hora' => $request->fecha_hora,
         ]);
-        $client=new Client();
-        $url="https://apiseventos.herokuapp.com/api/session";
+
+        $client = new Client();
+        $url = "https://apiseventos.herokuapp.com/api/session";
         $sessionJson = $client->request('GET', $url, [
-         'res'  => true,
+            'res'  => true,
         ]);
+        $cont = false;
         $sessions = json_decode($sessionJson->getBody());
-        foreach ($sessions as $session) {  
-            if(($session->id==$request->id_user))
-            {
-                $user=$session;
-            }          
+        foreach ($sessions as $session) {
+            if (($session->id == $request->id_user)) {
+                $cont = true;
+                $user = $session;
+            }
         }
-        $client=new Client();
-             $url="https://apiseventos.herokuapp.com/api/ubicaciones";
-             $ubicacionJson = $client->request('GET', $url, [
-              'res'  => true,
-             ]);
-            $ubicaciones = json_decode($ubicacionJson->getBody());
-        return view('Event.Ubication.createUbication',['user' => $user,'id_event'=>$request->id, 'ubicaciones'=>$ubicaciones]);
+        $client = new Client();
+        $url = "https://apiseventos.herokuapp.com/api/ubicaciones";
+        $ubicacionJson = $client->request('GET', $url, [
+            'res'  => true,
+        ]);
+        $ubicaciones = json_decode($ubicacionJson->getBody());
+        //     return view('Event.Ubication.createUbication', ['user' => $user, 'id_event' => $request->id, 'ubicaciones' => $ubicaciones]);
+        // }
+
+        ///////////////////
+        return redirect()->route('event.show',$request->id_user);
+     
     }
 
     /**
@@ -76,35 +94,32 @@ class UbicacionController extends Controller
     public function show($id)
     {
         //
-        for ($i = 0; $i <= strlen($id)-1; $i++) {
-            if($id[$i]=='-')
-            {
-              $special=$i;
+        for ($i = 0; $i <= strlen($id) - 1; $i++) {
+            if ($id[$i] == '-') {
+                $special = $i;
             }
         }
-        $id_user=substr ( $id,0,$special);
-        $id_event=substr ( $id,$special+1,strlen($id)-1);
-        $client=new Client();
-        $url="https://apiseventos.herokuapp.com/api/session";
+        $id_user = substr($id, 0, $special);
+        $id_event = substr($id, $special + 1, strlen($id) - 1);
+        $client = new Client();
+        $url = "https://apiseventos.herokuapp.com/api/session";
         $sessionJson = $client->request('GET', $url, [
-         'res'  => true,
+            'res'  => true,
         ]);
         $sessions = json_decode($sessionJson->getBody());
-        foreach ($sessions as $session) {  
-            if(($session->id==$id_user))
-            {
-                $user=$session;
-            }          
+        foreach ($sessions as $session) {
+            if (($session->id == $id_user)) {
+                $user = $session;
+            }
         }
-        $client=new Client();
-             $url="https://apiseventos.herokuapp.com/api/ubicaciones";
-             $ubicacionJson = $client->request('GET', $url, [
-              'res'  => true,
-             ]);
-             $ubicaciones = json_decode($ubicacionJson->getBody());
-    
-        return view('Event.Ubication.createUbication',['user' => $user,'id_event'=>$id_event, 'ubicaciones'=>$ubicaciones]);
+        $client = new Client();
+        $url = "https://apiseventos.herokuapp.com/api/ubicaciones";
+        $ubicacionJson = $client->request('GET', $url, [
+            'res'  => true,
+        ]);
+        $ubicaciones = json_decode($ubicacionJson->getBody());
 
+        return view('Event.Ubication.createUbication', ['user' => $user, 'id_event' => $id_event, 'ubicaciones' => $ubicaciones]);
     }
 
     /**

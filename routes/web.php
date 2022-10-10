@@ -12,6 +12,8 @@ use App\Http\Controllers\CartController;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ContactanosMail;
+use Aws\Account\AccountClient;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -49,6 +51,10 @@ Route::post('/precompra', [CartController::class,'precompra'])->name('cart.preco
 Route::get('/mistickets/{id}', [TicketsController::class,'misTickets'])->name('misTickets.tickets');
 Route::get('/eventindex/{id}', [EventController::class,'indexEvent'])->name('eventindex.eventprincipal');
 Route::get('/eventcrear/{id}', [EventController::class,'createEvent'])->name('eventcrear.createevent');
+Route::get('/eventpersonal/{id}', [EventController::class,'personalEvent'])->name('eventpersonal.personalEvent');
+Route::get('/eventpersonaldate/{id}', [EventController::class,'personalDateEvent'])->name('eventpersonaldate.personalDateEvent');
+Route::get('/eventpersonalsoli/{id}', [EventController::class,'personalSolicitudEvent'])->name('eventpersonalsoli.personalSolicitudEvent');
+Route::get('/fotografoindex/{id}', [AccountController::class,'indexFotografo'])->name('fotografoindex.indexFotografo');
 Route::post('/LoginUser',[AuthController::class,'iniciar'])->name('LoginUser.iniciar');
 Route::resource('/auth',AuthController::class);
 Route::resource('/profile',ProfileController::class);
@@ -58,4 +64,7 @@ Route::resource('/tickets',TicketsController::class);
 Route::resource('/areas',AreaController::class);
 Route::resource('/ubicacion',UbicacionController::class);
 Route::resource('/compra',CartController::class);
+
+//////Personal.index
+
 

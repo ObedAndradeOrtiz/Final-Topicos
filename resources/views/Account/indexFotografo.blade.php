@@ -145,124 +145,100 @@
 
             <!--  /Bootstrap y jQuery -->
 
-
             <script src="{{ asset('js/modal.js') }}"></script>
             <script src="{{ asset('js/functions.js') }}"></script>
             <script src="{{ asset('js/scripts.js') }}"></script>
             <div class="container-xl px-4 mt-4">
-
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <li>Ingrese todos los datos, por favor verificar.</li>
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-
-
-                <form action="{{ route('event.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="" method="post">
                     @csrf
-                    <input type="hidden" name="idUser" value="{{ $user->id }}" />
+
                     <!-- Account page navigation-->
                     <nav class="nav nav-borders">
                         <a class="nav-link active ms-0"
-                        href="">Evento</a>
+                        href="">Mis Datos como Fotografo</a>
                     </nav>
                     <hr class="mt-0 mb-4">
                     <div class="row">
 
-                        <div class="col-xl-8">
+                        <div class="col-xl-12">
                             <!-- Account details card-->
                             <div class="card mb-4">
-                                <div class="card-header">Detalles Principales del Evento</div>
+                                <div class="card-header">Datos Profesionales</div>
                                 <div class="card-body">
+                                    <form>
+                                        <div class="row gx-3 mb-3">
+                                            <div class="col-md-4">
+                                                <label class="small mb-1" for="inputLastName">Soy Fotografo</label>
+                                                <select name="categoria" id="categoira" class="form-control line-s-2"
+                                                    style="height: 3rem" required>
+                                                    <option selected></option>
+                                                    <option>Si</option>
+                                                    <option>No</option>
+                                                </select>
+                                            </div>
 
-                                    <!-- Form Row-->
-                                    <div class="row gx-3 mb-3">
-                                        <!-- Form Group (first name)-->
-                                        <div class="col-md-6">
-                                            <label class="small mb-1" for="inputFirstName">Nombre</label>
-                                            <input type="text" class="form-control" id="titulo"
-                                                placeholder="Nombre del evento" name="titulo" style="height: 3rem"
-                                                required>
-                                        </div>
-                                        <!-- Form Group (last name)-->
 
-                                    </div>
-                                    <div class="row gx-3 mb-3">
-                                        <div class="col-md-6">
-                                            <label class="small mb-1" for="inputLastName">Tipo de evento</label>
-                                            <select name="tipo" id="tipo" class="form-control" style="height: 3rem"
-                                                required>
-                                                <option selected></option>
-                                                <option>Privado</option>
-                                                <option>Publico</option>
-                                            </select>
+                                            <!-- Form Group (su Apellido)-->
+                                            <div class="col-md-4">
+                                                <label class="small mb-1" for="inputLastName">Correo Profesional</label>
+                                                <input class="form-control" id="inputLastName" type="text"
+                                                    placeholder="Ingrese su Apellido" value="{{ $user->email }}"
+                                                    style="height: 3rem" required>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label class="small mb-1" for="inputLastName">Habilidades</label>
+                                                <input class="form-control" id="inputLastName" type="text"
+                                                    placeholder="Ingrese sus Habilidades"
+                                                    value=""style="height: 3rem" required>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="row gx-3 mb-3">
-                                        <div class="col-md-6">
-                                            <label class="small mb-1" for="inputLastName">Restriccion de edad > 18
-                                            </label>
-                                            <select name="rest_edad" id="rest_edad" class="form-control line-s"
-                                                style="height: 3rem" required>
-                                                <option selected></option>
-                                                <option>Si</option>
-                                                <option>No</option>
-                                            </select>
+                                        <!-- Form Row-->
+                                        <div class="row gx-3 mb-3">
+                                            <!-- Form Group (Numero de Telefono)-->
+                                            <div class="col-md-4">
+                                                <label class="small mb-1" for="inputPhone">LinkedIn</label>
+                                                <input class="form-control" id="inputPhone" type="text"
+                                                    placeholder="Ingrese enlace de su perfil LinkedIn"
+                                                    value=""style="height: 3rem" required>
+                                            </div>
+                                            <!-- Form Group (Cumpleaños)-->
+                                            <div class="col-md-4">
+                                                <label class="small mb-1" for="inputBirthday">Nivel Profesional como
+                                                    Fotografo</label>
+                                                <input class="form-control" id="inputBirthday" type="text"
+                                                    name="birthday" placeholder="Ingrese su nivel Profesional"
+                                                    value=""style="height: 3rem" required>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label class="small mb-1" for="inputPhone">Referencia</label>
+                                                <input class="form-control" id="inputPhone" type="text"
+                                                    placeholder="Ingrese sus Referencias"
+                                                    value=""style="height: 3rem" required>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="row gx-3 mb-3">
-                                        <div class="col-md-6">
-                                            <label class="small mb-1" for="inputLastName">Categoria</label>
-                                            <select name="categoria" id="categoira" class="form-control line-s-2"
-                                                style="height: 3rem" required>
-                                                <option selected></option>
-                                                <option>Concierto</option>
-                                                <option>Cine</option>
-                                                <option>Aeropuerto</option>
-                                                <option>Matrimonio</option>
-                                                <option>Graduacion</option>
-                                                <option>Deportivo</option>
-                                                <option>Empresarial/corporativo</option>
-                                                <option>Cultural</option>
-                                                <option>Socioeducativa</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="row gx-3 mb-3">
-                                        <div class="col-md-6">
-                                            <label class="small mb-1" for="inputLastName">Descripcion</label>
-                                            <textarea name="descripcion" class="form-control" id="exampleFormControlTextarea1" rows="3" required></textarea>
-                                        </div>
-                                    </div>
-                                    {{-- <div class="row gx-3 mb-3">
-                                <div class="col-md-6">
-                                    <label class="small mb-1" for="inputLastName">Link video promocional</label>
-                                    <input type="text" class="form-control" id="link_video" placeholder="Link video promocional" name="link_video" style="height: 3rem" required>
-                                </div>
-                            </div> --}}
-                                    <div class="row">
-                                        <label class="small mb-1" for="inputLastName">Elige una imagen de portada</label>
-                                        <div class="">
-                                            <section id="Images" class="images-cards">
-                                                <div class="row">
-                                                    <div class=" col-md-3" id="add-photo-container">
-                                                        <div class="add-new-photo first" id="add-photo">
-                                                            <span><i class="icon-camera" style="color:black;"></i></span>
-                                                        </div>
-                                                        <input type="file" multiple id="add-new-photo" name="images"
-                                                            required>
 
-                                                    </div>
-                                                </div>
-                                            </section>
+                                        <div class="row gx-3 mb-3">
+                                            <!-- Form Group (Numero de Telefono)-->
+                                            <div class="col-md-4">
+                                                <label class="small mb-1" for="inputPhone">Idiomas</label>
+                                                <input class="form-control" id="inputPhone" type="text"
+                                                    placeholder="Ingrese los Idiomas que habla"
+                                                    value=""style="height: 3rem" required>
+                                            </div>
+
                                         </div>
-                                        <button class="btn btn-warning mb-4 mt-4 py-3" type="submit">Siguiente</button>
-                                    </div>
+
+                                        <div class="col-xl-4">
+                                            <div class="row gx-3 mb-3">
+                                                <!-- Save changes button-->
+                                                <button class="btn btn-outline-warning" style="color:#0061f2"
+                                                    type="button submit"><strong>Guardar Cambios</strong></button>
+                                            </div>
+                                        </div>
+                                        {{-- <!-- Save changes button-->
+                                        <button class="btn btn-outline-warning" style="color:#0061f2"
+                                            type="button"><strong>Guardar Cambios</strong></button> --}}
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -270,6 +246,5 @@
                 </form>
             </div>
         </main>
-
     </body>
 @endsection

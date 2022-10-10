@@ -79,9 +79,6 @@
             margin-right: 1rem;
         }
     </style>
-@section('css')
-<link rel="stylesheet" href="{{ asset('css/subir.css') }}">
-@stop
 
     <body>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
@@ -92,85 +89,47 @@
         </script>
         <script src="{{ asset('assets/dist/js/bootstrap.bundle.min.js') }}"></script>
         <script src="{{ asset('sidebars.js') }}"></script>
-
-        <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-storage.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.0/dist/JsBarcode.all.min.js"></script>
-
+        <script>
+            function goBack() {
+                window.history.back();
+            }
+        </script>
         <div class="container-xl px-4 mt-4">
             <form action="" method="post">
                 @csrf
 
                 <!-- Account page navigation-->
                 <nav class="nav nav-borders">
-                    <a class="nav-link active ms-0"
-                        href="">Perfil</a>
+                    <a class="nav-link active ms-0" href="">Perfil
+                        Profesional de {{ $user->name }}</a>
+                    <div class="col-xl-6">
+
+                        <button {{-- href="{{ URL::previous() }}" --}} onclick="goBack()" class="btn btn-outline-warning"
+                            style="color:#0061f2" type="button"><strong>Volver a Personal de Evento</strong></button>
+                    </div>
+
                 </nav>
                 <hr class="mt-0 mb-4">
                 <div class="row">
                     <div class="col-xl-4">
                         <!-- Profile picture card-->
                         <div class="card mb-4 mb-xl-0">
-                            <div class="card-header">Perfil Imagen</div>
+                            <div class="card-header">Foto de Perfil </div>
                             <div class="card-body text-center">
                                 <!-- Profile picture image-->
-                                {{-- <img class="img-account-profile rounded-circle mb-2" src="http://bootdey.com/img/Content/avatar/avatar1.png" alt=""> --}}
                                 <img class="img-account-profile rounded-circle mb-2" src="https://github.com/mdo.png"
                                     alt="">
                                 <!-- Profile picture help block-->
                                 <div class="small font-italic text-muted mb-4">{{ $user->name }} {{ $user->lastname }}
                                 </div>
-                                <div class="small font-italic text-muted mb-4">PNG o JPG no mas de 5 MB</div>
-                                <!-- Profile picture upload button-->
-
-
-                               <!-- <button class="btn btn-outline-warning" style="color:#0061f2" type="button"><strong>Subir
-                                        nueva imagen</strong></button>-->
-
-                                        @section('js')
-                                        <script src="{{ asset('js/usuario.js') }}"></script>
-                                        @endsection
-                    
-                                        <!--<h5>Foto:</h5>-->
-                                        <div class="col-12" id="app" style="text-align:center;">
-                                            <img width="200" height="200" class="img-circle" src="{{ old('lastname',$user->lastname ) }}" onerror="this.style.display='none'">
-                                            <progress id="progress_bar" value="0" max="100"></progress>
-                                        </div>
-                                        @error('lastname')
-                                        <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                    
-                                        <input type="hidden" value="{{ old('lastname', $user->lastname) }}" name="lastname" id="lastnamev" title="foto" placeholder="https://example.com" list="defaultURLs" class="focus border-dark  form-control" required oninvalid="this.setCustomValidity('Please match the requested format')">
-                    
-                                        <div class="custom-input-file">
-                                            <input type="file" id="file" accept="image/*" class="btn btn-outline-warning" value="" style="color:#0061f2" >
-                                            <!--<button class="btn btn-outline-warning" id="file" accept="image/*" style="color:#0061f2" type="file"><strong>Subir
-                                                nueva imagen</strong></button>--><br>
-                                            <i class="fas fa-file-upload"></i> Subir Foto...
-                                        </div>
-                    
-                                        <!--Nueva Foto-->
-                                        <div class="col-12" id="app" style="text-align:center;">
-                                            <img width="0" height="0" class="img-circle" id="lastname" src="">
-                                            @error('lastname')
-                                            <span class="text-danger">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-
 
                             </div>
                         </div>
-
-
-
-
-                         
-
                     </div>
                     <div class="col-xl-8">
                         <!-- Account details card-->
                         <div class="card mb-4">
-                            <div class="card-header">Detalles de Cuenta</div>
+                            <div class="card-header">Informacion Profesional</div>
                             <div class="card-body">
                                 <form>
 
@@ -178,35 +137,79 @@
                                     <div class="row gx-3 mb-3">
                                         <!-- Form Group (su Nombre)-->
                                         <div class="col-md-6">
-                                            <label class="small mb-1" for="inputFirstName">Nombre</label>
-                                            <input class="form-control" id="inputFirstName" type="text"
-                                                placeholder="Ingrese su Nombre" value="{{ $user->name }}">
+                                            <label class="small mb-1">Nombre</label>
+                                            <label class="small mb-1 form-control">{{ $user->name }}</label>
                                         </div>
                                         <!-- Form Group (su Apellido)-->
                                         <div class="col-md-6">
-                                            <label class="small mb-1" for="inputLastName">Apellido</label>
-                                            <input class="form-control" id="inputLastName" type="text"
-                                                placeholder="Ingrese su Apellido" value="{{ $user->lastname }}">
+                                            <label class="small mb-1">Apellido</label>
+                                            <label class="small mb-1 form-control">{{ $user->lastname }}</label>
+
                                         </div>
                                     </div>
                                     <!-- Form Row-->
                                     <div class="row gx-3 mb-3">
                                         <!-- Form Group (Numero de Telefono)-->
                                         <div class="col-md-6">
-                                            <label class="small mb-1" for="inputPhone">Numero de Telefono</label>
-                                            <input class="form-control" id="inputPhone" type="tel"
-                                                placeholder="Ingrese su Numero de Telefono" value="">
+                                            <label class="small mb-1">Numero de Telefono</label>
+                                            <label class="small mb-1 form-control">Apellido</label>
+
                                         </div>
                                         <!-- Form Group (Cumpleaños)-->
                                         <div class="col-md-6">
-                                            <label class="small mb-1" for="inputBirthday">Cumpleaños</label>
-                                            <input class="form-control" id="inputBirthday" type="date" name="birthday"
-                                                placeholder="Ingrese su Cumpleaños" value="">
+                                            <label class="small mb-1">Cumpleaños</label>
+                                            <label class="small mb-1 form-control"> - </label>
+
+                                        </div>
+                                    </div>
+                                    <!-- Form Row-->
+                                    <div class="row gx-3 mb-3">
+                                        <!-- Form Group (correoProfesional)-->
+                                        <div class="col-md-6">
+                                            <label class="small mb-1">correo Profesional</label>
+                                            <label class="small mb-1 form-control"> - </label>
+
+                                        </div>
+                                        <!-- Form Group (habilidades)-->
+                                        <div class="col-md-6">
+                                            <label class="small mb-1">Habilidades</label>
+                                            <label class="small mb-1 form-control"> - </label>
+
+                                        </div>
+                                    </div>
+                                    <!-- Form Row-->
+                                    <div class="row gx-3 mb-3">
+                                        <!-- Form Group (Link linkedIn)-->
+                                        <div class="col-md-6">
+                                            <label class="small mb-1">Link linkedIn</label>
+                                            <label class="small mb-1 form-control"> - </label>
+
+                                        </div>
+                                        <!-- Form Group (Nivel Profesional)-->
+                                        <div class="col-md-6">
+                                            <label class="small mb-1">Nivel Profesional</label>
+                                            <label class="small mb-1 form-control"> - </label>
+
+                                        </div>
+                                    </div>
+                                    <!-- Form Row-->
+                                    <div class="row gx-3 mb-3">
+                                        <!-- Form Group (Referencia)-->
+                                        <div class="col-md-6">
+                                            <label class="small mb-1">Referencias</label>
+                                            <label class="small mb-1 form-control"> - </label>
+
+                                        </div>
+                                        <!-- Form Group (Idiomas)-->
+                                        <div class="col-md-6">
+                                            <label class="small mb-1">Idiomas</label>
+                                            <label class="small mb-1 form-control"> - </label>
+
                                         </div>
                                     </div>
                                     <!-- Save changes button-->
                                     <button class="btn btn-outline-warning" style="color:#0061f2"
-                                        type="button"><strong>Guardar Cambios</strong></button>
+                                        type="button"><strong>Enviar invitacion al Evento</strong></button>
                                 </form>
                             </div>
                         </div>
