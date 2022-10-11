@@ -139,7 +139,7 @@
                 <input type="hidden" name="id_user" value="{{ $user->id }}">
                 <!-- Account page navigation-->
                 <nav class="nav nav-borders">
-                    <a class="nav-link active ms-0" href="" >Ubicación del Evento</a>
+                    <a class="nav-link active ms-0" href="">Ubicación del Evento</a>
                 </nav>
                 <div class="mb-3 sombra-claro">
                     <button class="btn btn-info collapsed boton-collapsed" style="width: 100%;" type="button"
@@ -167,13 +167,7 @@
                                         name="nombre" required>
                                 </div>
                             </div>
-                            <div class="row gx-3 mb-3">
-                                <div class="col-md-6">
-                                    <label class="small mb-1" for="inputLastName">Ingrese la Ubicación</label>
-                                    <input type="text" class="form-control" id="titulo" placeholder="Ubicacion"
-                                        name="ubicacion" required>
-                                </div>
-                            </div>
+                       
                             <div class="row gx-3 mb-3">
                                 <div class="col-md-6">
                                     <label class="small mb-1" for="inputLastName">Ingrese la Direccion</label>
@@ -184,7 +178,7 @@
                             <div class="row gx-3 mb-3">
                                 <div class="col-md-6">
                                     <label class="small mb-1" for="inputLastName">Ingrese el Telefono</label>
-                                    <input type="number" class="form-control" id="titulo" placeholder="Telefono"
+                                    <input type="tel" class="form-control" id="titulo" placeholder="Telefono"
                                         name="telefono" required>
                                 </div>
                             </div>

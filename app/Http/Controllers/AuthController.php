@@ -44,6 +44,7 @@ class AuthController extends Controller
             'lastname'=>$request->lastname,
             'email'=>$request->email,
             'password'=>bcrypt($request->password),
+            
             // 'soyFotografo'=>null,
             // 'correoProfesional'=>null,
             // 'habilidad'=>null,
@@ -111,10 +112,58 @@ class AuthController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function updateDateFotografo(Request $request, $id)
+    {
+    
+    }
+
     public function update(Request $request, $id)
     {
-        //
-        /*Carla Carmen Julia  Cecilia Cristina Dayana Helen Nancy Natalia Rossy Roxana Silvia*/
+       // return "DINOOOOOOOOOOOOOOOOOOOO hola";
+        $id_user = $id;
+        $response = Http::put('https://apiseventos.herokuapp.com/api/session/' . $id_user, [
+            'soyFotografo' => $request->soyFotografo,
+            'correoProfesional' => $request->correoProfesional,
+            'habilidad' => $request->habilidad,
+            'linkedIn' => $request->linkedIn,
+            'nivelProfesional' => $request->nivelProfesional,
+            'Referencia' => $request->Referencia,
+            'Idioma' => $request->Idioma,
+        ]);
+
+        if($response->json('res')==true)
+        {
+            $client = new Client();
+            $url = "https://apiseventos.herokuapp.com/api/session";
+            $sessionJson = $client->request('GET', $url, [
+                'res'  => true,
+            ]);
+    
+           // $cont = false;
+            $sessions = json_decode($sessionJson->getBody());
+            foreach ($sessions as $session) {
+                if (($session->id == $id_user)) {
+                    //$cont=true;
+                    $user = $session;
+                }
+            }
+            // $client = new Client();
+            // $url = "https://apiseventos.herokuapp.com/api/sessions";
+            // $response = $client->request('GET', $url, [
+            //     'res'  => true,
+            // ]);
+    
+            // $eventos = json_decode($response->getBody());
+            // return view('Event.show', ['user' => $user, 'eventos' => $eventos]);
+      
+                return view('Account.indexFotografo', ['user' => $user]);
+        }
+        else
+        {
+            Session::flash('warning','No se realizo la actualizacion del usuario');
+            return "dinoooooo fallaaaaaaa";
+        }
+     
     }
 
     /**

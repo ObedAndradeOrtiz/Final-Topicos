@@ -148,6 +148,12 @@
             <script src="{{ asset('js/modal.js') }}"></script>
             <script src="{{ asset('js/functions.js') }}"></script>
             <script src="{{ asset('js/scripts.js') }}"></script>
+            <script>
+                function goBack() {
+                    window.history.back();
+                }
+            </script>
+
             <div class="container-xl px-4 mt-4">
 
                 <!-- Account page navigation-->
@@ -156,6 +162,11 @@
                     <a class="nav-link active ms-0"
                         href="{{ route('eventpersonalsoli.personalSolicitudEvent', $id_event . '-' . $user->id) }}">Solicitudes
                         de Fotografos</a>
+                        <div class="col-xl-6">
+
+                            <button {{-- href="{{ URL::previous() }}" --}} onclick="goBack()" class="btn btn-outline-warning"
+                                style="color:#0061f2" type="button"><strong>Volver a ....</strong></button>
+                        </div>
                 </nav>
 
                 <hr class="mt-0 mb-4">

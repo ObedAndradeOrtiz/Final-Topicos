@@ -45,9 +45,12 @@
         <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
             integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+            <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
+            <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-storage.js"></script>
         <script src="{{ asset('assets/dist/js/bootstrap.bundle.min.js') }}"></script>
         <script src="{{ asset('assets/dist/js/bootstrap.bundle.min.js') }}"></script>
-        <script src="{{ asset('sidebars.js') }}"></script>
+        {{-- <script src="{{ asset('sidebars.js') }}"></script> --}}
+ 
     </head>
     <style>
         body {
@@ -245,8 +248,30 @@
                                     <input type="text" class="form-control" id="link_video" placeholder="Link video promocional" name="link_video" style="height: 3rem" required>
                                 </div>
                             </div> --}}
+
+                            @section('js')
+                            <script src="{{ asset('js/usuario.js') }}"></script>
+                            @endsection
+                            <center>
+                                {{-- separador --}}
+                                <div class="form-group col-md-3">
+                                    <img width="200" height="200" class="img-circle" id="file">
+                                    <div class="custom-input-file">
+                                        <input type="file" id="file" accept="image/*" class="input-file" value="">
+                                        <i class="fas fa-file-upload"></i> Subir Foto...
+                                    </div>
+                                    <div class="col-12" id="app" style="text-align:center;">
+                                        <progress id="progress_bar" value="0" max="100"></progress>
+                                        <input type="hidden" value="{{ old('file') }}" name="file" id="filev" title="file" placeholder="https://example.com" list="defaultURLs" class="focus border-dark  form-control" oninvalid="this.setCustomValidity('Please match the requested format')">
+                                    </div>
+                                    @error('file')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </center>
+                            
                                     <div class="row">
-                                        <label class="small mb-1" for="inputLastName">Elige una imagen de portada</label>
+                                        {{-- <label class="small mb-1" for="inputLastName">Elige una imagen de portada</label>
                                         <div class="">
                                             <section id="Images" class="images-cards">
                                                 <div class="row">
@@ -260,9 +285,19 @@
                                                     </div>
                                                 </div>
                                             </section>
-                                        </div>
+                                        </div> --}}
                                         <button class="btn btn-warning mb-4 mt-4 py-3" type="submit">Siguiente</button>
                                     </div>
+
+
+
+
+
+
+
+
+
+
                                 </div>
                             </div>
                         </div>

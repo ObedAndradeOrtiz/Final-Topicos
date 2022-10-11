@@ -2,13 +2,13 @@
     // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-    apiKey: "AIzaSyDNAF2IXypq1WLBK2ManEUDq2NN3rPj9i8",
-    authDomain: "imagenes-972f4.firebaseapp.com",
-    projectId: "imagenes-972f4",
-    storageBucket: "imagenes-972f4.appspot.com",
-    messagingSenderId: "1030499470410",
-    appId: "1:1030499470410:web:f1f47d5195089917baeab3",
-    measurementId: "G-GPVPTSPG3K"
+    apiKey: "AIzaSyBPrmdnCY1QJep0aDk3EsmhLAlQgpj5e9M",
+    authDomain: "fotagora-6e9a8.firebaseapp.com",
+    projectId: "fotagora-6e9a8",
+    storageBucket: "fotagora-6e9a8.appspot.com",
+    messagingSenderId: "144181596746",
+    appId: "1:144181596746:web:b2f2d931b932fd21450cb3",
+    measurementId: "G-SCXD4PZL09"
   };
   
   // Initialize Firebase
@@ -23,10 +23,10 @@ const firebaseConfig = {
           progressBar.value = progress;
       });
       storageRef.getDownloadURL().then(function(url){
-          var image = document.getElementById('lastname');
+          var image = document.getElementById('file');
           console.log('firebase',url);//'firebase',url value
           image.src = url;
-          document.getElementById('lastnamev').value = url;
-          console.log(document.getElementById('lastnamev'));
+          document.getElementById('filev').value = url;
+          console.log(document.getElementById('filev'));
       });
   });

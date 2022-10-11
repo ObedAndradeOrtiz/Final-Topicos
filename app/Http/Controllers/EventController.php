@@ -84,6 +84,7 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
+        return "dinooooooooooooooooooo";
         $client = new Client();
         $url = "https://apiseventos.herokuapp.com/api/session";
         $sessionJson = $client->request('GET', $url, [
@@ -96,7 +97,7 @@ class EventController extends Controller
                 $user = $session;
             }
         }
-        $path = $request->file('images')->store('public');
+        //$path = $request->file('images')->store('public');
 
         $request->validate([
             'titulo' => 'required',
@@ -104,7 +105,7 @@ class EventController extends Controller
             'rest_edad' => 'required',
             'descripcion' => 'required',
             'categoria' => 'required',
-            'file' => $path,
+            //'file' => $path,
         ]);
 
         $response = Http::post('https://apiseventos.herokuapp.com/api/eventos', [
@@ -114,7 +115,7 @@ class EventController extends Controller
             'rest_edad' => $request->rest_edad,
             'descripcion' => $request->descripcion,
             'categoria' => $request->categoria,
-            'file' => $path,
+            'file' => $request->file,
         ]);
 
         if ($response->json('res') == true) {
@@ -346,6 +347,27 @@ class EventController extends Controller
         if ($cont == true) {
             return view('Event.Personal.show', ['usuarios' => $sessions, 'user' => $user, 'id_event' => $id_event]);
         }
-         //return "dinooooooooo";
+    }
+
+    public function storeEventuser(Request $request, $id)
+    {
+        $response = Http::post('https://apiseventos.herokuapp.com/api/crearevento', [
+            'Fotografo' => $request->Fotografo,
+            'id_user' => $request->id_user,
+            'id_event' => $request->id_event,
+        ]);
+
+        $client = new Client();
+        $url = "https://apiseventos.herokuapp.com/api/session";
+        $sessionJson = $client->request('GET', $url, [
+            'res'  => true,
+        ]);
+        $sessions = json_decode($sessionJson->getBody());
+        foreach ($sessions as $session) {
+            if (($session->id == $request->id_user)) {
+                $user = $session;
+            }
+        }
+        return back();
     }
 }

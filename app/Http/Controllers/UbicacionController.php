@@ -37,15 +37,17 @@ class UbicacionController extends Controller
     public function store(Request $request)
     {
         //
-        $request->validate([
-            'nombre' => 'required',
-            'ubicacion' => 'required',
-            'direccion' => 'required',
-            'telefono' => 'required',
-            'ciudad' => 'required',
-            'pais' => 'required',
-            'fecha_hora' => 'required',
-        ]);
+        // $request->validate([
+        //     'nombre' => 'required',
+        //     'ubicacion' => 'required',
+        //     'direccion' => 'required',
+        //     'telefono' => 'required',
+        //     'ciudad' => 'required',
+        //     'pais' => 'required',
+        //     'fecha_hora' => 'required',
+        // ]);
+
+
 
         $response = Http::post('https://apiseventos.herokuapp.com/api/ubicaciones', [
             'event_id' => $request->id,
@@ -58,6 +60,13 @@ class UbicacionController extends Controller
             'fecha_hora' => $request->fecha_hora,
         ]);
 
+        if ($response->json('res') == true) {
+
+            return "okkkk";
+        } else {
+            return "dinooooooooooooooooo";
+        }
+
         $client = new Client();
         $url = "https://apiseventos.herokuapp.com/api/session";
         $sessionJson = $client->request('GET', $url, [
@@ -67,7 +76,7 @@ class UbicacionController extends Controller
         $sessions = json_decode($sessionJson->getBody());
         foreach ($sessions as $session) {
             if (($session->id == $request->id_user)) {
-                $cont = true;
+                //$cont = true;
                 $user = $session;
             }
         }
@@ -77,12 +86,12 @@ class UbicacionController extends Controller
             'res'  => true,
         ]);
         $ubicaciones = json_decode($ubicacionJson->getBody());
-        //     return view('Event.Ubication.createUbication', ['user' => $user, 'id_event' => $request->id, 'ubicaciones' => $ubicaciones]);
-        // }
+        return view('Event.Ubication.createUbication', ['user' => $user, 'id_event' => $request->id, 'ubicaciones' => $ubicaciones]);
+
 
         ///////////////////
-        return redirect()->route('event.show',$request->id_user);
-     
+        // return redirect()->route('event.show',$request->id_user);
+
     }
 
     /**

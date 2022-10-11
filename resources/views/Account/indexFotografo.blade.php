@@ -1,6 +1,8 @@
 @extends('Layouts.dashboard')
 @section('content')
-
+<utf-8>
+    
+</utf-8>
     <head>
         <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/features/">
 
@@ -149,17 +151,15 @@
             <script src="{{ asset('js/functions.js') }}"></script>
             <script src="{{ asset('js/scripts.js') }}"></script>
             <div class="container-xl px-4 mt-4">
-                <form action="" method="post">
+                <form action="{{ route('auth.update', $user->id) }}" method="POST" @csrf {{-- Account page navigation  --}} <nav
+                    class="nav nav-borders">
                     @csrf
+                    @method('PUT')
 
-                    <!-- Account page navigation-->
-                    <nav class="nav nav-borders">
-                        <a class="nav-link active ms-0"
-                        href="">Mis Datos como Fotografo</a>
+                    <a class="nav-link active ms-0" href="">Mis Datos como Fotografo</a>
                     </nav>
                     <hr class="mt-0 mb-4">
                     <div class="row">
-
                         <div class="col-xl-12">
                             <!-- Account details card-->
                             <div class="card mb-4">
@@ -169,11 +169,15 @@
                                         <div class="row gx-3 mb-3">
                                             <div class="col-md-4">
                                                 <label class="small mb-1" for="inputLastName">Soy Fotografo</label>
-                                                <select name="categoria" id="categoira" class="form-control line-s-2"
-                                                    style="height: 3rem" required>
-                                                    <option selected></option>
-                                                    <option>Si</option>
-                                                    <option>No</option>
+                                                <select class="form-control" name="soyFotografo" id="soyFotografo"
+                                                    type="text" style="height: 3rem">
+                                                    @if ($user->soyFotografo == 'Si')
+                                                        <option selected>{{ $user->soyFotografo }}</option>
+                                                        <option value="No">No</option>
+                                                    @else
+                                                        <option selected>{{ $user->soyFotografo }}</option>
+                                                        <option value="Si">Si</option>
+                                                    @endif
                                                 </select>
                                             </div>
 
@@ -181,49 +185,49 @@
                                             <!-- Form Group (su Apellido)-->
                                             <div class="col-md-4">
                                                 <label class="small mb-1" for="inputLastName">Correo Profesional</label>
-                                                <input class="form-control" id="inputLastName" type="text"
-                                                    placeholder="Ingrese su Apellido" value="{{ $user->email }}"
-                                                    style="height: 3rem" required>
+                                                <input class="form-control" id="correoProfesional" type="text"
+                                                    name="correoProfesional" placeholder="Ingrese su correo Profesional"
+                                                    value="{{ $user->email }}" style="height: 3rem">
                                             </div>
                                             <div class="col-md-4">
                                                 <label class="small mb-1" for="inputLastName">Habilidades</label>
-                                                <input class="form-control" id="inputLastName" type="text"
-                                                    placeholder="Ingrese sus Habilidades"
-                                                    value=""style="height: 3rem" required>
+                                                <input class="form-control" id="habilidad" type="text"
+                                                    name="habilidad" placeholder="Ingrese sus Habilidades"
+                                                    value="{{ $user->habilidad }}"style="height: 3rem">
                                             </div>
                                         </div>
                                         <!-- Form Row-->
                                         <div class="row gx-3 mb-3">
                                             <!-- Form Group (Numero de Telefono)-->
                                             <div class="col-md-4">
-                                                <label class="small mb-1" for="inputPhone">LinkedIn</label>
-                                                <input class="form-control" id="inputPhone" type="text"
-                                                    placeholder="Ingrese enlace de su perfil LinkedIn"
-                                                    value=""style="height: 3rem" required>
+                                                <label class="small mb-1" for="linkedIn">LinkedIn</label>
+                                                <input class="form-control" id="linkedIn" type="text"
+                                                    name="linkedIn" placeholder="Ingrese enlace de su perfil LinkedIn"
+                                                    value="{{ $user->linkedIn }}"style="height: 3rem">
                                             </div>
                                             <!-- Form Group (Cumpleaños)-->
                                             <div class="col-md-4">
                                                 <label class="small mb-1" for="inputBirthday">Nivel Profesional como
                                                     Fotografo</label>
-                                                <input class="form-control" id="inputBirthday" type="text"
-                                                    name="birthday" placeholder="Ingrese su nivel Profesional"
-                                                    value=""style="height: 3rem" required>
+                                                <input class="form-control" id="nivelProfesional" type="text"
+                                                    name="nivelProfesional" placeholder="Ingrese su nivel Profesional"
+                                                    value="{{ $user->nivelProfesional }}"style="height: 3rem">
                                             </div>
                                             <div class="col-md-4">
-                                                <label class="small mb-1" for="inputPhone">Referencia</label>
-                                                <input class="form-control" id="inputPhone" type="text"
-                                                    placeholder="Ingrese sus Referencias"
-                                                    value=""style="height: 3rem" required>
+                                                <label class="small mb-1" for="Referencia">Referencia</label>
+                                                <input class="form-control" id="Referencia" type="text"
+                                                    name="Referencia" placeholder="Ingrese sus Referencias"
+                                                    value="{{ $user->Referencia }}"style="height: 3rem">
                                             </div>
                                         </div>
 
                                         <div class="row gx-3 mb-3">
                                             <!-- Form Group (Numero de Telefono)-->
                                             <div class="col-md-4">
-                                                <label class="small mb-1" for="inputPhone">Idiomas</label>
-                                                <input class="form-control" id="inputPhone" type="text"
+                                                <label class="small mb-1" for="Idioma">Idiomas</label>
+                                                <input class="form-control" id="Idioma" type="text" name="Idioma"
                                                     placeholder="Ingrese los Idiomas que habla"
-                                                    value=""style="height: 3rem" required>
+                                                    value="{{ $user->Idioma }}"style="height: 3rem">
                                             </div>
 
                                         </div>

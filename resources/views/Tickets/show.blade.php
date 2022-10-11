@@ -254,14 +254,20 @@
                                 @endforeach
                             </div>
                             <div class="col-xl-4">
-                                <div class="card mb-4 mb-xl-0">
-                                    <div class="card-header">Se parte del evento</div>
-                                    <div class="card-body text-center">
-                                        <div class="small font-italic text-muted mb-4"></div>
-                                        <button class="btn btn-outline-warning" style="color:#0061f2"
-                                            type="button"><strong>Postularse</strong></button>
+                                <form action="{{ route('tickets.storeEventuser', $user->id . '-' . $event->id) }}" method="post">
+                                    @csrf
+                                    <input type="hidden" name="Fotografo" value="Si">
+                                    <input type="hidden" name="id_user" value="{{ $user->id }}">
+                                    <input type="hidden" name="id_event" value="{{ $event->id }}">
+                                    <div class="card mb-4 mb-xl-0">
+                                        <div class="card-header">Se parte del evento</div>
+                                        <div class="card-body text-center">
+                                            <div class="small font-italic text-muted mb-4"></div>
+                                            <button class="btn btn-outline-warning" style="color:#0061f2"
+                                                type="summit button"><strong>Postularse</strong></button>
+                                        </div>
                                     </div>
-                                </div>
+                                </form>
 
                                 <br>
                                 <div class="card mb-4 mb-xl-0">

@@ -152,58 +152,48 @@
                                         <!-- Form Group (Numero de Telefono)-->
                                         <div class="col-md-6">
                                             <label class="small mb-1">Numero de Telefono</label>
-                                            <label class="small mb-1 form-control">Apellido</label>
-
+                                            <label class="small mb-1 form-control">{{ $user->lastname }}</label>
                                         </div>
-                                        <!-- Form Group (Cumpleaños)-->
-                                        <div class="col-md-6">
-                                            <label class="small mb-1">Cumpleaños</label>
-                                            <label class="small mb-1 form-control"> - </label>
-
-                                        </div>
-                                    </div>
-                                    <!-- Form Row-->
-                                    <div class="row gx-3 mb-3">
                                         <!-- Form Group (correoProfesional)-->
                                         <div class="col-md-6">
                                             <label class="small mb-1">correo Profesional</label>
-                                            <label class="small mb-1 form-control"> - </label>
-
+                                            <label class="small mb-1 form-control"> {{ $user->correoProfesional }} </label>
                                         </div>
+                                    </div>
+                                    <!-- Form Row-->
+                                    <div class="row gx-3 mb-3">
                                         <!-- Form Group (habilidades)-->
                                         <div class="col-md-6">
                                             <label class="small mb-1">Habilidades</label>
-                                            <label class="small mb-1 form-control"> - </label>
-
+                                            <label class="small mb-1 form-control"> {{ $user->habilidad }}</label>
                                         </div>
-                                    </div>
-                                    <!-- Form Row-->
-                                    <div class="row gx-3 mb-3">
                                         <!-- Form Group (Link linkedIn)-->
                                         <div class="col-md-6">
                                             <label class="small mb-1">Link linkedIn</label>
-                                            <label class="small mb-1 form-control"> - </label>
-
-                                        </div>
-                                        <!-- Form Group (Nivel Profesional)-->
-                                        <div class="col-md-6">
-                                            <label class="small mb-1">Nivel Profesional</label>
-                                            <label class="small mb-1 form-control"> - </label>
-
+                                            <label class="small mb-1 form-control">{{ $user->linkedIn }} </label>
                                         </div>
                                     </div>
                                     <!-- Form Row-->
                                     <div class="row gx-3 mb-3">
+
+                                        <!-- Form Group (Nivel Profesional)-->
+                                        <div class="col-md-6">
+                                            <label class="small mb-1">Nivel Profesional</label>
+                                            <label class="small mb-1 form-control"> {{ $user->nivelProfesional }}</label>
+                                        </div>
                                         <!-- Form Group (Referencia)-->
                                         <div class="col-md-6">
                                             <label class="small mb-1">Referencias</label>
-                                            <label class="small mb-1 form-control"> - </label>
-
+                                            <label class="small mb-1 form-control"> {{ $user->Referencia }} </label>
                                         </div>
+                                    </div>
+                                    <!-- Form Row-->
+                                    <div class="row gx-3 mb-3">
+
                                         <!-- Form Group (Idiomas)-->
                                         <div class="col-md-6">
                                             <label class="small mb-1">Idiomas</label>
-                                            <label class="small mb-1 form-control"> - </label>
+                                            <label class="small mb-1 form-control"> {{ $user->Idioma }} </label>
 
                                         </div>
                                     </div>

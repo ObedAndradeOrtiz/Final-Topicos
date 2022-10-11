@@ -100,8 +100,8 @@
 
             .body {
                 background: #9053c7;
-                background: -webkit-linear-gradient(-135deg, #c850c0, #4158d0);
-                background: -o-linear-gradient(-135deg, #c850c0, #4158d0);
+                background: -webkit-linear-gradient(-135deg, #cfa6cd, #e7e7e9);
+                background: -o-linear-gradient(-135deg, #666066, #8598f7);
                 background: -moz-linear-gradient(-135deg, #c850c0, #4158d0);
                 background: linear-gradient(-135deg, #c850c0, #4158d0);
 
@@ -131,15 +131,14 @@
         <main>
             <div class="album py-5 bg-light">
                 <div class="container card-bubble">
-
-                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
+                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3">
                         @foreach ($eventos as $event)
                             <div class="col">
                                 <div class="card" style="width: 15rem; height: 30rem padding:2rem">
                                     <img src="{{ Storage::url($event->file) }}" class="card-img-top" alt="IMG"
-                                        style="width: 15rem; height: 15rem">
+                                        {{-- style="width: 15rem; height: 15rem"> --}} style="width: 25rem; height: 15rem">
                                     <!--<img src="{{ asset($event->file) }}"  class="card-img-top" alt="IMG"
-                                    style="width: 15rem; height: 15rem"/>-->
+                                        style="width: 15rem; height: 15rem"/>-->
                                     <div class="card-body">
                                         <h5 class="card-title text-center">{{ $event->titulo }}</h5>
 
@@ -155,7 +154,7 @@
                                                 <line x1="15" y1="17" x2="15" y2="19" />
                                                 {{-- <path d="M5 5h14a2 2 0 0 1 2 2v3a2 2 0 0 0 0 4v3a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-3a2 2 0 0 0 0 -4v-3a2 2 0 0 1 2 -2" /> --}}
                                             </svg>
-                                            <strong>Comprar Tickets</strong>
+                                            <strong>Ver Detalles</strong>
                                         </a>
                                     </div>
                                 </div>
@@ -172,7 +171,6 @@
                 <p class="float-end ">
                     <a href="#">Volver al inico</a>
                 </p>
-
                 <p class="mt-3">Todos los derechos reservados &copy;Company</p>
             </div>
         </footer>
